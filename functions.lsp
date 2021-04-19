@@ -1,16 +1,25 @@
 ;
 ; CIS 343, Winter 2021, Project 7 - Functions in Common LISP
 ;
-; Student Name(s): 
+; Student Name(s): Tyler West
 ;
 
 (defun my-gcd (a b)
-    
+	(if(< a b) (
+		(setq tmp a)
+		(setq a b)
+		(setq b tmp)
+	))
+
+	(setq r (mod a b))
+	(if(= r 0) (return b))
+
+	(my-gcd(b r))
 )
 
 
 (defun is-palindrome (l)
-
+	
 )
 
 

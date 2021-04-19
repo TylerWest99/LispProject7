@@ -7,10 +7,7 @@
 (defun my-gcd (a b)
 	(if(< a b) (
 		(setq tmp a)
-	;;	(setq a b)
-	;;	(setq b tmp)
-	;;))
-	)	
+	))	
 
 	;;(setq r (mod a b))
 	;;(if(= r 0) (return b))

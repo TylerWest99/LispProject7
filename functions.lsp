@@ -1,67 +1,137 @@
-;
-; CIS 343, Winter 2021, Project 7 - Functions in Common LISP
+CIS 343, Winter 2021, Project 7 - Functions in Common LISP
 ;
 ; Student Name(s): Tyler West
 ;
 
 (defun my-gcd (a b)
-	(cond (< a b) 
+	 (when (< a b) 
 		(setq tmp a)
 		(setq a b)
 		(setq b tmp)
 	)
 
 	(setq r (mod a b))
-	(if(= r 0) (return b))
-
-	(my-gcd(b r))
+	(if (= r 0)
+	 b
+	 (my-gcd b r))
 )
 
 
 (defun is-palindrome (l)
-	
+	(when (= (length l) 0)
+		(return-from is-palindrome nil))
+
+  (setq rev (reverse l))
+	(setq idx 0)
+	(loop for x in l
+	  do 
+		  (progn 
+			  (when (not (eq x (elt rev idx)))
+			    (return-from is-palindrome nil)
+			  )					
+			  (setq idx (+ idx 1))
+			)
+	)
+	T
 )
 
 
 (defun intlist (n)
-
+	(setq result '())
+	(loop while (> n 0)
+	  do (progn 
+			(setq result (append result (list n)))
+			(setq n (- n 1))
+		))
+  result
 )
 
 
 (defun analyze (l)
-
+	(setq result '())
+	(loop for x in l
+		do (if 
+		  (atom x) (setq result (append result '(atom)))
+			(setq result (append result '(list)))))
+	result
 )
 
 
 (defun only-atoms (l)
+  (when (null l)
+	  (return-from only-atoms nil))
 
+	(when (listp (first l))
+	  (return-from only-atoms nil))
+
+	(when (eq (length l) 1)
+	  (return-from only-atoms T))
+
+	(only-atoms (rest l))
 )
 
 
 (defun only-atoms-iter (l)
+	(when (eq (length l) 0)
+	  (return-from only-atoms-iter nil))
 
+	(loop for x in l
+	  do
+		(when (listp x)
+			(return-from only-atoms-iter nil)))
+	T			
 )
 
 
 (defun quad-roots (a b c)
-
+    (setq d (sqrt (- (* b b) (* 4 a c))))
+		(list (/ (+ (- b) d) (* 2 a)) (/ (- (- b) d) (* 2 a)))
 )
 
 
 (defun rotate-from-right (l n)
+	(setq len (length l))
+	; IF N < 0 N = 0
+	; IDX = LEN - (N % LEN)
+	(when (< n 0)
+		(setq n 0)
+	)
+	(setq idx (- len (mod n len)))
+	(when (eq idx len) 
+		(setq idx 0))
 
+	(setq result '())
+	(setq count 0)
+	(loop while (< count len)
+	  do (progn 
+			(setq result (append result (list (elt l idx))))
+			(setq count (+ count 1))
+			(setq idx (+ idx 1))
+			(when (eq idx len)
+			  (setq idx 0))
+	))
+	result
 )
 
 
 (defun odds (l)
-
+	(when (null l)
+		(return-from odds nil))
+	(cons (first l) (odds (rest (rest l))))
 )
 
 
 (defun odds-iter (l)
-
+	(setq result '())
+	(setq count 1)
+	(loop for x in l
+	  do (progn
+			(when (eq (mod count 2) 1)
+			(setq result (append result (list x))))
+			(setq count (+ count 1))
+		))		
+	result
 )
-
 
 ;
 ; DO NOT MODIFY THE CODE BELOW: Contains test functions

@@ -5,10 +5,10 @@
 ;
 
 (defun my-gcd (a b)
-	(if (< a b) 
-		((setq tmp a)
+	(cond (< a b) 
+		(setq tmp a)
 		(setq a b)
-		(setq b tmp))
+		(setq b tmp)
 	)
 
 	(setq r (mod a b))

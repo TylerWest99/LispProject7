@@ -5,7 +5,7 @@
 ;
 
 (defun my-gcd (a b)
-	(setq x 10)
+	(setq tmp a)
 	;;(if(< a b) (
 	;;	(setq tmp a)
 	;;	(setq a b)
